@@ -9,6 +9,7 @@ var vehicles = [];
 var txt1 = "hi";
 var txt2 = "there";
 var textBool = true;
+var mouseClicks = 0;
 
 function preload() {
   font = loadFont('AvenirNextLTPro-Demi.otf');
@@ -34,6 +35,8 @@ function setup() {
 
     createP("Press the spacebar...");
 
+    createP("Now click the mouse...");
+
 }
 
 function draw() {
@@ -48,6 +51,22 @@ function draw() {
 
 function word1Update() {
   txt1 = word1.value();
+}
+
+function mousePressed(){
+  if (mouseClicks <= 2) {
+    for (var i = 0; i < vehicles.length; i++){
+      var v = vehicles[i];
+      v.newTarget(random(width), random(height));
+    }
+  } else {
+    for (var i = 0; i < vehicles.length; i++){
+      var v = vehicles[i];
+      v.newTarget(v.pos.x, height);
+      mouseClicks = 0;
+    }
+  }
+  mouseClicks++;
 }
 
 function keyPressed() {
