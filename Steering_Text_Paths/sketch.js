@@ -1,4 +1,5 @@
-// Daniel Shiffman
+// Tom Sealey
+// Original work by Daniel Shiffman
 // http://codingtra.in
 // Steering Text Paths
 // Video: https://youtu.be/4hA7G3gup-4
@@ -14,7 +15,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600, 300);
+  createCanvas(900, 300);
   background(51);
   // textFont(font);
   // textSize(192);
@@ -30,7 +31,9 @@ function setup() {
     var vehicle = new Vehicle(pt.x, pt.y);
     vehicles.push(vehicle);
     }
+
     createP("Press the spacebar...");
+
 }
 
 function draw() {
@@ -41,6 +44,10 @@ function draw() {
     v.update();
     v.show();
   }
+}
+
+function word1Update() {
+  txt1 = word1.value();
 }
 
 function keyPressed() {
@@ -63,9 +70,14 @@ function keyPressed() {
               vehicles.push(vehicle);
               }
         } else if (points.length < vehicles.length){
-          for (var i = vehicles.length; i > points.length; i--) {
-              vehicles.pop();
+          for (var i = points.length; i < vehicles.length; i++) {
+            var v = vehicles[i];
+            v.newTarget(random(width), height);
             }
+          // for (var i = vehicles.length - 1; i > points.length; i--) {
+          //   var v = vehicles[i];
+          //   v.newTarget(pt.x, height);
+          //   }
             for (var i =0; i < points.length; i++) {
             var pt = points[i];
             var v = vehicles[i];
@@ -99,7 +111,8 @@ function keyPressed() {
             }
       } else if (points.length < vehicles.length) {
         for (var i = vehicles.length; i > points.length; i--) {
-            vehicles.pop();
+          var v = vehicles[i];
+          v.newTarget(random(width), height);
           }
           for (var i =0; i < points.length; i++) {
           var pt = points[i];

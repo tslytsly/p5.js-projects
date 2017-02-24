@@ -1,10 +1,12 @@
-// Daniel Shiffman
+// Tom Sealey
+// Original work by Daniel Shiffman
 // http://codingtra.in
 // Steering Text Paths
-// Video: [coming soon]
+// Video: https://youtu.be/4hA7G3gup-4
+
 
 function Vehicle(x, y) {
-  this.pos = createVector(random(width), random(height));
+  this.pos = createVector(random(width), height);
   this.target = createVector(x, y);
   this.vel = p5.Vector.random2D();
   this.acc = createVector();
@@ -23,6 +25,7 @@ Vehicle.prototype.behaviors = function() {
 
   this.applyForce(arrive);
   this.applyForce(flee);
+
 }
 
 Vehicle.prototype.applyForce = function(f) {
@@ -30,9 +33,9 @@ Vehicle.prototype.applyForce = function(f) {
 }
 
 Vehicle.prototype.update = function() {
-  this.pos.add(this.vel);
-  this.vel.add(this.acc);
-  this.acc.mult(0);
+    this.pos.add(this.vel);
+    this.vel.add(this.acc);
+    this.acc.mult(0);
 }
 
 Vehicle.prototype.newTarget = function(x, y) {
