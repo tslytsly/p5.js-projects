@@ -30,7 +30,7 @@ function setup() {
     var vehicle = new Vehicle(pt.x, pt.y);
     vehicles.push(vehicle);
     }
-  createP("Press the spacebar...");
+    createP("Press the spacebar...");
 }
 
 function draw() {
