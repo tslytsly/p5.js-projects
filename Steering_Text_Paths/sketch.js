@@ -5,6 +5,8 @@
 // Video: https://youtu.be/4hA7G3gup-4
 
 var font;
+var density = 0.25;
+var densitySlider;
 var vehicles = [];
 var txt1 = "hi";
 var txt2 = "there";
@@ -18,30 +20,30 @@ function preload() {
 function setup() {
   createCanvas(900, 300);
   background(51);
-  // textFont(font);
-  // textSize(192);
-  // fill(255);
-  // noStroke();
-  // text('train', 100, 200);
+  colorMode(HSB, 100, 100, 255);
+  densitySlider = createSlider(0.1, 1, 0.25, 0.01);
+  densitySlider.position(400,300);
+
   var points = font.textToPoints(txt1, 100, 200, 192, {
-    sampleFactor: 0.25
+    sampleFactor: density
   });
 
   for (var i = 0; i < points.length; i++) {
     var pt = points[i];
-    var vehicle = new Vehicle(pt.x, pt.y);
+    var vehicle = new Vehicle(pt.x, pt.y, random(50,200));
     vehicles.push(vehicle);
     }
 
     createP("Press the spacebar...");
 
-    createP("Now click the mouse...");
+    createP("Now click the mouse inside the canvas...");
 
 }
 
 function draw() {
   background(51);
-  for (var i = 0; i < vehicles.length; i++) {
+  var density = densitySlider.value();
+    for (var i = 0; i < vehicles.length; i++) {
     var v = vehicles[i];
     v.behaviors();
     v.update();
@@ -54,28 +56,31 @@ function word1Update() {
 }
 
 function mousePressed(){
-  if (mouseClicks <= 2) {
-    for (var i = 0; i < vehicles.length; i++){
-      var v = vehicles[i];
-      v.newTarget(random(width), random(height));
+  if (mouseX < 900 && mouseY < 300){
+    if (mouseClicks <= 2) {
+      for (var i = 0; i < vehicles.length; i++){
+        var v = vehicles[i];
+        v.newTarget(random(width), random(height));
+      }
+    } else {
+      for (var i = 0; i < vehicles.length; i++){
+        var v = vehicles[i];
+        v.newTarget(v.pos.x, height);
+        mouseClicks = 0;
+      }
     }
-  } else {
-    for (var i = 0; i < vehicles.length; i++){
-      var v = vehicles[i];
-      v.newTarget(v.pos.x, height);
-      mouseClicks = 0;
-    }
+    mouseClicks++;
   }
-  mouseClicks++;
 }
 
 function keyPressed() {
   if (keyCode === 32) {
       if (!textBool) {
         var points = font.textToPoints(txt1, 100, 200, 192, {
-          sampleFactor: 0.25
+          sampleFactor: density
         });
         textBool = true;
+        console.log(points.length);
 
         if (points.length > vehicles.length) {
           for (var i =0; i < vehicles.length; i++) {
@@ -85,7 +90,7 @@ function keyPressed() {
             }
             for (var i = vehicles.length; i < points.length; i++) {
               var pt = points[i];
-              var vehicle = new Vehicle(pt.x, pt.y);
+              var vehicle = new Vehicle(pt.x, pt.y, random(0,255));
               vehicles.push(vehicle);
               }
         } else if (points.length < vehicles.length){
@@ -113,7 +118,7 @@ function keyPressed() {
 
      else {
       var points = font.textToPoints(txt2, 100, 200, 192, {
-        sampleFactor: 0.25
+        sampleFactor: density
       });
       textBool = false;
 
@@ -125,7 +130,7 @@ function keyPressed() {
           }
           for (var i = vehicles.length; i < points.length; i++) {
             var pt = points[i];
-            var vehicle = new Vehicle(pt.x, pt.y);
+            var vehicle = new Vehicle(pt.x, pt.y, random(0,255));
             vehicles.push(vehicle);
             }
       } else if (points.length < vehicles.length) {

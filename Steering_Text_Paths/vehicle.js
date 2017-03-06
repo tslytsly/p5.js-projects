@@ -3,9 +3,9 @@
 // http://codingtra.in
 // Steering Text Paths
 // Video: https://youtu.be/4hA7G3gup-4
+var col = 125;
 
-
-function Vehicle(x, y) {
+function Vehicle(x, y, c) {
   this.pos = createVector(random(width), height);
   this.target = createVector(x, y);
   this.vel = p5.Vector.random2D();
@@ -13,6 +13,9 @@ function Vehicle(x, y) {
   this.r = 8;
   this.maxspeed = 10;
   this.maxforce = 1;
+  if (c) {
+    this.col = c;
+  }
 }
 
 Vehicle.prototype.behaviors = function() {
@@ -43,7 +46,7 @@ Vehicle.prototype.newTarget = function(x, y) {
 }
 
 Vehicle.prototype.show = function() {
-  stroke(255);
+  stroke(this.col);
   strokeWeight(this.r);
   point(this.pos.x, this.pos.y);
 }
