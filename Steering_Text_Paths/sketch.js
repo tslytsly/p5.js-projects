@@ -20,7 +20,7 @@ function preload() {
 function setup() {
   createCanvas(900, 300);
   background(51);
-  colorMode(HSB, 100, 100, 255);
+  colorMode(HSB);
   densitySlider = createSlider(0.1, 1, 0.25, 0.01);
   densitySlider.position(400,300);
 
@@ -30,7 +30,7 @@ function setup() {
 
   for (var i = 0; i < points.length; i++) {
     var pt = points[i];
-    var vehicle = new Vehicle(pt.x, pt.y, random(50,200));
+    var vehicle = new Vehicle(pt.x, pt.y);
     vehicles.push(vehicle);
     }
 
@@ -44,9 +44,11 @@ function draw() {
   background(51);
   var density = densitySlider.value();
     for (var i = 0; i < vehicles.length; i++) {
+      col = color(map(i, 0, vehicles.length, 0, 360), 100, 100);
     var v = vehicles[i];
     v.behaviors();
     v.update();
+    v.setColor(col);
     v.show();
   }
 }
@@ -90,7 +92,7 @@ function keyPressed() {
             }
             for (var i = vehicles.length; i < points.length; i++) {
               var pt = points[i];
-              var vehicle = new Vehicle(pt.x, pt.y, random(0,255));
+              var vehicle = new Vehicle(pt.x, pt.y);
               vehicles.push(vehicle);
               }
         } else if (points.length < vehicles.length){
@@ -130,7 +132,7 @@ function keyPressed() {
           }
           for (var i = vehicles.length; i < points.length; i++) {
             var pt = points[i];
-            var vehicle = new Vehicle(pt.x, pt.y, random(0,255));
+            var vehicle = new Vehicle(pt.x, pt.y);
             vehicles.push(vehicle);
             }
       } else if (points.length < vehicles.length) {
