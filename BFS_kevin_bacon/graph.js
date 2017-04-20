@@ -32,9 +32,9 @@ Graph.prototype.setEnd = function(actor) {
 }
 
 
-Graph.prototype.addNode = function(n) {
+Graph.prototype.addNode = function(n, x, y) {
   // Node into array
-  this.nodes.push(n);
+  this.nodes.push(n, x, y);
   var title = n.value;
   // Node into "hash"
   this.graph[title] = n;

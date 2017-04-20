@@ -1,3 +1,4 @@
+// Original code:
 // Daniel Shiffman
 // http://codingtra.in
 // http://patreon.com/codingtrain
@@ -10,16 +11,20 @@
 var data;
 var graph;
 var dropdown;
+var nodeViz = [];
 
 function preload() {
   data = loadJSON('kevinbacon.json');
 }
 
 function setup() {
+  createCanvas(800, 400);
+  background(51);
+  noLoop();
   graph = new Graph();
   dropdown = createSelect();
   dropdown.changed(bfs);
-  noCanvas();
+
   //console.log(data);
 
   var movies = data.movies;
@@ -28,7 +33,7 @@ function setup() {
     var movie = movies[i].title;
     var cast = movies[i].cast;
     var movieNode = new Node(movie);
-    graph.addNode(movieNode);
+    graph.addNode(movieNode, random(width), random(height));
 
     for (var j = 0; j < cast.length; j++) {
       var actor = cast[j];
@@ -37,8 +42,23 @@ function setup() {
         actorNode = new Node(actor);
         dropdown.option(actor);
       }
-      graph.addNode(actorNode);
+      graph.addNode(actorNode, random(width), random(height));
       movieNode.addEdge(actorNode);
+    }
+  }
+}
+
+function draw() {
+  background(51);
+
+  if (nodeViz){
+    for (var i = 0; i < nodeViz.length; i++){
+      var a = createVector(nodeViz[i].x, nodeViz[i].y);
+      ellipse(a.x, a.y, 50, 50);
+      stroke(255);
+      if (i - 1 >= 0) {
+        line(a.x, a.y, nodeViz[i-1].x,nodeViz[i-1].y);
+      }
     }
   }
 }
@@ -86,6 +106,7 @@ function bfs() {
   for (var i = path.length - 1; i >= 0; i--) {
     var n = path[i];
     txt += n.value
+    nodeViz = n;
     if (i != 0) {
       txt += ' --> '
     };
