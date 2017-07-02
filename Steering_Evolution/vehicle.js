@@ -148,21 +148,21 @@ function Vehicle(x, y, dna) {
     rotate(angle);
 
 
+    var gr = color(0, 255, 0);
+    var bl = color(0, 0, 255);
+    var col = lerpColor(bl, gr, this.health);
+
     if (debug.checked()) {
       strokeWeight(3);
-      stroke(0, 255, 0);
+      stroke(gr);
       noFill();
       line(0, 0, 0, -this.dna[0] * 25);
       strokeWeight(2);
       ellipse(0, 0, this.dna[2] * 2);
-      stroke(255, 0, 0);
+      stroke(bl);
       line(0, 0, 0, -this.dna[1] * 25);
       ellipse(0, 0, this.dna[3] * 2);
     }
-
-    var gr = color(0, 255, 0);
-    var rd = color(255, 0, 0);
-    var col = lerpColor(rd, gr, this.health);
 
     fill(col);
     stroke(col);
