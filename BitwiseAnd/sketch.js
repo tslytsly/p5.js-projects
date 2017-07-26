@@ -28,7 +28,7 @@ function portCheck(msk) {
     for (i = 0; i < mask.length; i++) {
         mask[i] = "0x" + mask[i];
         console.log("Mask " + i + " is " + mask[i]);
-}
+
         //check them against the port array
         console.log("chkArray run number " + i);
         chkArray(mask[i], 32, idx);
@@ -36,10 +36,10 @@ function portCheck(msk) {
         console.log("idx= " + idx);
 
 
-    for (i = 1; i < resultArr.length; i++) {
-        console.log("Port " + i + " is in VLAN = " + resultArr[i]);
+        for (i = 1; i < resultArr.length; i++) {
+            console.log("Port " + i + " is in VLAN = " + resultArr[i]);
+        }
     }
-
 }
 
 function chkArray(snmpBitMask, maskLength, startIndx) {
