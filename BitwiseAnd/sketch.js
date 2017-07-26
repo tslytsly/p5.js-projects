@@ -37,8 +37,8 @@ function portCheck(msk) {
         console.log("idx= " + idx);
 
 
-        for (i = 1; i < resultArr.length; i++) {
-            console.log("Port " + i + " is in VLAN = " + resultArr[i]);
+        for (j = 1; j < resultArr.length; j++) {
+            console.log("Port " + j + " is in VLAN = " + resultArr[j]);
         }
         console.log("End of Loop No. " + i);
     }
