@@ -26,6 +26,7 @@ function portCheck(msk) {
     mask = msk.match(/.{1,8}/g);
     //convert them to a hex
     for (i = 0; i < mask.length; i++) {
+        console.log("Start of Loop No. " + i);
         mask[i] = "0x" + mask[i];
         console.log("Mask " + i + " is " + mask[i]);
 
@@ -39,6 +40,7 @@ function portCheck(msk) {
         for (i = 1; i < resultArr.length; i++) {
             console.log("Port " + i + " is in VLAN = " + resultArr[i]);
         }
+        console.log("End of Loop No. " + i);
     }
 }
 
