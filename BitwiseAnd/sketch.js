@@ -19,6 +19,22 @@ function setup() {
     //main function
     portCheck(bitmask);
 
+    //loop through the array and print the results
+    for (i = 1; i <= 8; i++) { //loop through each switch
+        // var text = "";
+        for (j = 1; j <= 50; j++) { //loop through each port
+            // var prtIndx = (i * 50 - 50) + j;
+            var prtIndx = ((512 / 8 * i) - 64) + j;
+            // text = text + i + "/" + j + " in VLAN = " + resultArr[prtIndx] + " ";
+            if (resultArr[prtIndx]) {
+                createP(i + "/" + j + " in VLAN = " + resultArr[prtIndx] + " ");
+            } else {
+                createP(i + "/" + j + " in VLAN = **" + resultArr[prtIndx] + "** ");
+            }
+        }
+        // createP(text);
+    }
+
 }
 
 function portCheck(msk) {
@@ -38,7 +54,7 @@ function portCheck(msk) {
         //check them against the port array
         // this is doing a bitand to every possible port
         for (j = 0; j < 32; j++) {
-            resultArr[j + idx] = ((portArr[j + idx] & mask[i]) !== 0);
+            resultArr[j + idx] = ((portArr[j] & mask[i]) !== 0);
         }
         // idx keeps track of where we are up to
         idx += 32;
@@ -47,9 +63,10 @@ function portCheck(msk) {
         console.log("End of Loop No. " + i);
     }
 
-
     // once we have checked all switches we need to report the state for each port
     for (i = 1; i < resultArr.length; i++) {
-        console.log("Port " + i + " is in VLAN = " + resultArr[i]);
+        var switchNum = floor(i / 50) + 1;
+        var portNum = i % 50;
+        console.log("Port " + switchNum + "/" + portNum + " is in VLAN = " + resultArr[i]);
     }
 }
